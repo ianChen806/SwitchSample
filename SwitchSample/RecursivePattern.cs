@@ -24,7 +24,7 @@ namespace SwitchSample
         {
             foreach (var item in list)
             {
-                if (item is MyClass3 {Score: 24, IsPassed: false})
+                if (item is {Score: 24, IsPassed: false})
                 {
                     yield return item;
                 }
