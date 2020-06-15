@@ -8,14 +8,25 @@ namespace SwitchSample
         public void SwitchPlus()
         {
             var colorType = ColorType.Blue;
-            var color = colorType switch
+            string color;
+            switch (colorType)
             {
-                ColorType.Red => "red",
-                ColorType.Blue => "blue",
-                ColorType.Yellow => "yellow",
-                ColorType.Green => "green",
-                _ => "non"
-            };
+                case ColorType.Red:
+                    color = "red";
+                    break;
+                case ColorType.Blue:
+                    color = "blue";
+                    break;
+                case ColorType.Yellow:
+                    color = "yellow";
+                    break;
+                case ColorType.Green:
+                    color = "green";
+                    break;
+                default:
+                    color = "non";
+                    break;
+            }
 
             Assert.Equal("blue", color);
         }
