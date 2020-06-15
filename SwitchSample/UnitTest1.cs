@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace SwitchSample
@@ -64,6 +65,50 @@ namespace SwitchSample
 
             Assert.Equal(ResultType.Win, result);
         }
+
+        [Fact]
+        public void PositionPattern()
+        {
+            var expression = new MyExpression
+            {
+                Operand = "*",
+                X = 2,
+                Y = 5
+            };
+            var result = expression switch
+            {
+                ("+", var x, var y) => x + y,
+                ("-", var x, var y) => x - y,
+                ("*", var x, var y) => x * y,
+                ("/", _, 0) => double.NaN,
+                ("/", var x, var y) => (double)x / y,
+                _ => throw new ArgumentException(),
+            };
+
+            Assert.Equal(10, result);
+        }
+    }
+
+    public class MyExpression
+    {
+        public string Operand { get; set; }
+
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+        public void Deconstruct(out string operand, out int x, out int y)
+        {
+            operand = Operand;
+            x = X;
+            y = Y;
+        }
+    }
+
+    public enum RoleType
+    {
+        Admin,
+        User,
     }
 
     public enum ResultType
