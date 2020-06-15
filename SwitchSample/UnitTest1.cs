@@ -47,6 +47,37 @@ namespace SwitchSample
 
             Assert.Equal("123", id);
         }
+
+        [Fact]
+        public void TuplePattern()
+        {
+            var player1 = TupleType.Scissors;
+            var player2 = TupleType.Paper;
+            var result = (player1, player2) switch
+            {
+                (TupleType.Scissors, TupleType.Paper) => ResultType.Win,
+                (TupleType.Rock, TupleType.Scissors) => ResultType.Win,
+                (TupleType.Paper, TupleType.Rock) => ResultType.Win,
+                var (first, second) when first == second => ResultType.Deuce,
+                _ => ResultType.Lose,
+            };
+
+            Assert.Equal(ResultType.Win, result);
+        }
+    }
+
+    public enum ResultType
+    {
+        Win,
+        Deuce,
+        Lose
+    }
+
+    public enum TupleType
+    {
+        Scissors,
+        Rock,
+        Paper,
     }
 
     public class MyClass
