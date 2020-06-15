@@ -37,16 +37,17 @@ namespace SwitchSample
         {
             var myClass = new MyClass
             {
-                Id = 123
+                Id = 234,
+                Name = "Test",
             };
             var id = myClass switch
             {
                 {Id: 123} => "123",
-                {Id: 234} => "234",
+                {Id: 234, Name: var name} => $"name:{name}",
                 _ => "non"
             };
 
-            Assert.Equal("123", id);
+            Assert.Equal("name:Test", id);
         }
 
         [Fact]
@@ -128,5 +129,7 @@ namespace SwitchSample
     public class MyClass
     {
         public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 }
