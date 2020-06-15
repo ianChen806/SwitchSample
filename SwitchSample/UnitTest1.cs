@@ -30,5 +30,27 @@ namespace SwitchSample
 
             Assert.Equal("blue", color);
         }
+
+        [Fact]
+        public void PropertyPattern()
+        {
+            var myClass = new MyClass
+            {
+                Id = 123
+            };
+            var id = myClass switch
+            {
+                {Id: 123} => "123",
+                {Id: 234} => "234",
+                _ => "non"
+            };
+
+            Assert.Equal("123", id);
+        }
+    }
+
+    public class MyClass
+    {
+        public int Id { get; set; }
     }
 }
